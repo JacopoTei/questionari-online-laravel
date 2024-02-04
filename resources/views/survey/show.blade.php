@@ -13,11 +13,13 @@
                     <p><small>{{$survey->description}}</small></p>
                     <p>{{date('d/m/y h:m:s', strtotime($survey->created_at))}}</p>
                     <div class="d-flex justify-content-start">
-                        <a class="btn btn-dark" href="/survey/{{$survey->id}}/question/create">Crea nuova domanda</a>
-                    <a href="{{ route('survey.take', ['survey' => $survey->id, 'slug' => Str::slug($survey->title)]) }}" class="btn btn-success mx-2">Compila il questionario</a>
+                        @if(Auth::user()->id == $survey->user_id) <!-- Aggiungi controllo sull'utente autenticato -->
+                            <a class="btn btn-dark" href="/survey/{{$survey->id}}/question/create">Crea nuova domanda</a>
+                        @endif
+                        <a href="{{ route('survey.take', ['survey' => $survey->id, 'slug' => Str::slug($survey->title)]) }}" class="btn btn-success mx-2">Compila il questionario</a>
                     </div>
-                    
                 </div>
+                
             </div>
 
             @foreach ($survey->questions as $question)
@@ -43,12 +45,13 @@
                         @endif
                     </ul>
                     <div class="card-footer">
+                        @if(Auth::user()->id == $survey->user_id) <!-- Aggiungi controllo sull'utente autenticato -->
                         <form action="{{ route('survey.delete_questions', ['survey' => $survey->id]) }}" method="post">
                             @method('DELETE')
                             @csrf
                             <button type="submit" class="btn btn-outline-danger">Cancella domande del sondaggio</button>
                         </form>
-                                             
+                        @endif
                     </div>
                 </div>
             </div>
