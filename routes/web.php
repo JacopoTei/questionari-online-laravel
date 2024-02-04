@@ -25,6 +25,7 @@ Route::get('/survey/create', [SurveyController::class, 'create'])->name('survey.
 Route::post('/survey/create', [SurveyController::class, 'store'])->name('survey.store');
 Route::get('/survey/{survey}', [SurveyController::class, 'show'])->name('survey.show');
 Route::delete('/survey/{survey}/delete-questions', [SurveyController::class, 'deleteQuestions'])->name('survey.delete_questions');
+Route::get('/dashboard', [SurveyController::class, 'dashboard'])->name('dashboard');
 
 
 Route::get('/survey/{survey}/question/create', [QuestionController::class, 'create'])->name('question.create');

@@ -75,6 +75,13 @@ class SurveyController extends Controller
     return redirect()->route('home')->with('success', 'Domande del sondaggio cancellate con successo');
 }
 
+public function dashboard()
+{
+    // Recupera le survey create dall'utente collegato
+    $surveys = Survey::where('user_id', auth()->user()->id)->get();
+
+    return view('dashboard', compact('surveys'));
+}
 
 
 }
